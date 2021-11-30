@@ -7,19 +7,6 @@ import Button from 'react-bootstrap/Button';
 
 export default function Header() {
     return (
-        // <div className="header">
-        //     <div className="headerTitles">
-        //         <span className="headerTitleSm">Welcome Home</span>
-
-        //         <span className="headerTitleLg"><a href="/login" class="btn btn-primary btn-lg">Click To Login</a><a href="/register" class="btn btn-primary btn-lg">Click To Register</a></span>
-
-        //     </div>
-
-        //     <img className="headerImg" 
-        //     src={background}></img> 
-
-        // </div>
-
 
 
         <Carousel>

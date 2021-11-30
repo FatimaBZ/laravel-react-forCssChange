@@ -11,3 +11,10 @@
    font-weight: 800;
    color: #333333;
   }
+
+  p.about-text {
+   font: normal 16px / 28px "Poppins",Helvetica,Arial,Verdana,sans-serif;
+   word-spacing: normal;
+   color: #222;
+   text-align:justify;
+  }

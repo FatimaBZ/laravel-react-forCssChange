@@ -114,6 +114,7 @@ export default function TopBar(props) {
           <div className="topRight">
             <i className="topIcon fab fa-facebook-square"></i>
             <i className="topIcon fab fa-twitter-square"></i>
+            <i className="topIcon fas fa-rss"></i>
           </div>
 
         </Navbar>
