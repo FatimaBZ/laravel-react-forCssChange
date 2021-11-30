@@ -17,16 +17,16 @@ const EditableRow = ({
           onChange={handleEditFormChange}
         ></input>
       </td>
-      <td>
+      {/* <td>
         <input
           type="text"
           required="required"
           placeholder="Enter Building Name..."
-          name="buildingName"
+          name="ownerId"
           value={editFormData.buildingName}
           onChange={handleEditFormChange}
         ></input>
-      </td>
+      </td> */}
       
       <td>
         <button type="submit">Save</button>

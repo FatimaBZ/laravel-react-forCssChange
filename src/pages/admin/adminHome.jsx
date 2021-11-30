@@ -273,6 +273,20 @@ export default function AdminHome() {
                 </Card>
               </Col>
 
+              <Col>
+                <Card body outline color="success" className="mx-auto my-2" border="primary">
+                  <Card.Body>
+                    <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-list fa-2x"></i></p>
+                      <Card.Title> <h4 style={{ textAlign: 'center' }}>Manage Incident</h4></Card.Title></Card.Title>
+
+                    <Card.Text>
+                      Manager can take action for the incidents reported by residents.
+                    </Card.Text>
+                    <p style={{ textAlign: 'center' }}><a href="/manager_incident"> <Button variant="primary">Click here</Button> </a> </p>
+                  </Card.Body>
+                </Card>
+              </Col>
+
             </Row>
           </Offcanvas.Body>
         </Offcanvas>

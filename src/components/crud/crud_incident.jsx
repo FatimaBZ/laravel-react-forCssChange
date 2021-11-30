@@ -1,41 +1,19 @@
 
 import "./crud_building.css";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect} from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRowIncident";
 import EditableRow from "./EditableRowIncident";
+import axios from "axios";
 const data = [
   {
-    "id": 1,
-    "incidentName": "Jenny Chan",
-    "buildingName": "3 waterfoot road",
+    "id": "",
+    "incidentName": "",
+    "ownerId": "",
     
   },
-  {
-    "id": 2,
-    "incidentName": "Jessica warren",
-    "buildingName": "4 tall town",
-    
-  },
-  {
-    "id": 3,
-    "incidentName": "Tony Frank",
-    "buildingName": "11 lesly road",
-    
-  },
-  {
-    "id": 4,
-    "incidentName": "Jeremy Clark",
-    "buildingName": "333 miltown manor",
-    
-  },
-  {
-    "id": 5,
-    "incidentName": "Raymond Edwards",
-    "buildingName": "99 blue acres",
-   
-  }
+  
 ]
 
 
@@ -43,16 +21,41 @@ export default function CrudIncident() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     incidentName: "",
-    buildingName: "",
+    ownerId: "",
    
   });
 
   const [editFormData, setEditFormData] = useState({
     incidentName: "",
-    buildingName: "",
+    ownerId: "",
    
   });
-
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardIncident",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          let transformArray;
+            console.log(result);
+            transformArray =  result.incident.map(item =>{
+              return {
+                incidentName: item.incident,
+                ownerId: item.empid,
+                id: item.id
+              }
+            });
+            console.log("test:::",transformArray);
+            setContacts(transformArray)
+        }
+    )
+},[]);
   const [editContactId, setEditContactId] = useState(null);
 
   const handleAddFormChange = (event) => {
@@ -85,12 +88,18 @@ export default function CrudIncident() {
     const newContact = {
       id: nanoid(),
       incidentName: addFormData.incidentName,
-      buildingName: addFormData.buildingName,
+      apartmentNumber: addFormData.apartmentNumber,
       
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
+    axios.post('http://127.0.0.1:8000/api/addIncident',newContact)
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be inserted. Try again")
+     console.log(error.response)
+        });
   };
 
   const handleEditFormSubmit = (event) => {
@@ -99,7 +108,7 @@ export default function CrudIncident() {
     const editedContact = {
       id: editContactId,
       incidentName: editFormData.incidentName,
-      buildingName: editFormData.buildingName,
+      ownerId: editFormData.ownerId,
       
     };
 
@@ -110,6 +119,12 @@ export default function CrudIncident() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
+    axios.put('http://127.0.0.1:8000/api/editIncident',editedContact)
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be updated Try again")
+     console.log(error.response)
+        });
     setEditContactId(null);
   };
 
@@ -119,7 +134,7 @@ export default function CrudIncident() {
 
     const formValues = {
       incidentName: contact.incidentName,
-      buildingName: contact.buildingName,
+      ownerId: contact.ownerId,
      
     };
 
@@ -130,14 +145,21 @@ export default function CrudIncident() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (contactId) => {
+  const handleDeleteClick = (id) => {
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.id === contactId);
+    const index = contacts.findIndex((contact) => contact.id === id);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deleteIncident',{ data: { id: id } })
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be deleted. Try again")
+     console.log(error.response)
+        });
   };
 
   return (
@@ -147,7 +169,7 @@ export default function CrudIncident() {
           <thead>
             <tr>
               <th>Incident</th>
-              <th>Building Name</th>
+              <th>User Id Of the Owner</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -179,23 +201,23 @@ export default function CrudIncident() {
           type="text"
           name="incidentName"
           required="required"
-          placeholder="Enter a Incident Title..."
+          placeholder="Enter  Incident..."
           onChange={handleAddFormChange}
         />
         <input
-          type="text"
-          name="buildingName"
+          type="integer"
+          name="apartmentNumber"
           required="required"
-          placeholder="Enter a building name..."
+          placeholder="Enter apartment.."
           onChange={handleAddFormChange}
         />
         
         <button type="submit">Add</button>
       </form>
       <div>
-      <a href="/manager_plant">Manage Plants</a><br/>
-        <a href="/manager_pool">Manage Pool</a><br/>
-        <a href="/manager_garden">Manage Garden</a>
+      <a href="">Manage Service Requests</a><br/>
+        {/* <a href="/manager_pool">Manage Pool</a><br/>
+        <a href="/manager_garden">Manage Garden</a> */}
       </div>
       </div>
     
