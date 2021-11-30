@@ -7,7 +7,7 @@ export default function About() {
       <div className="main-content">
         <div className="m-t-20">
           <div className="rows">
-            <div className="columnss aboutpage-img-width"></div>
+            {/* <div className="columnss aboutpage-img-width"></div> */}
             <div className="inner-container">
               <h1>About Lunamar</h1>
               <p className="text">

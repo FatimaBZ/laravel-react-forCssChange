@@ -29,6 +29,9 @@
     top: 50%;
     font-size: 50px;
 }
+.btn-primary{
+    margin: 10px;
+}
 .hero-btn{
     display: inline-block;
     text-decoration: none;

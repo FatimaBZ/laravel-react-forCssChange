@@ -77,24 +77,70 @@ export default function Register() {
 
     }
     return (
-        <div className="register">
-      <span className="registerTitle">Register</span>
-      <form ref={form} className="registerForm">
-        <label>First Name</label>
-        <input className="registerInput" name="firstname" type="text" placeholder="Enter First Name" onChange={e=>setDetails({...details, firstname: e.target.value})} value={details.firstname} required/>
-        <label>Last Name</label>
-        <input className="registerInput" name="lastname" type="text" placeholder="Enter Last Name" onChange={e=>setDetails({...details, lastname: e.target.value})} value={details.lastname} required/>
-        <label>Email</label>
-        <input className="registerInput" name="email" type="email" placeholder="Enter Email" onChange={e=>setDetails({...details, email: e.target.value})} value={details.email} required/>
-        <label>Password</label>
-        <input className="registerInput" type="password" placeholder="Enter Password" onChange={e=>setDetails({...details, password: e.target.value})} value={details.password} required/>
-        <label>Re-enter Password</label>
-        <input className="registerInput" type="password" placeholder="Re-Enter Password" onChange={e=>setDetails({...details, repassword: e.target.value})} value={details.repassword} required/>
-        <label>Role</label>
-        <input className="registerInput" name="role" type="text" placeholder="Enter Roles" onChange={e=>setDetails({...details, role: e.target.value})} value={details.role} required/>
-        <button className="registerButton" onClick={submitHandler}>Register</button>
-      </form>
+    //     <div className="register">
+    //        <div className="outer">
+    //     <div className="inner">
+    //   <span className="registerTitle">Register</span>
+    //   <form ref={form} className="registerForm">
+    //     <label>First Name</label>
+    //     <input className="registerInput" name="firstname" type="text" placeholder="Enter First Name" onChange={e=>setDetails({...details, firstname: e.target.value})} value={details.firstname} required/>
+    //     <label>Last Name</label>
+    //     <input className="registerInput" name="lastname" type="text" placeholder="Enter Last Name" onChange={e=>setDetails({...details, lastname: e.target.value})} value={details.lastname} required/>
+    //     <label>Email</label>
+    //     <input className="registerInput" name="email" type="email" placeholder="Enter Email" onChange={e=>setDetails({...details, email: e.target.value})} value={details.email} required/>
+    //     <label>Password</label>
+    //     <input className="registerInput" type="password" placeholder="Enter Password" onChange={e=>setDetails({...details, password: e.target.value})} value={details.password} required/>
+    //     <label>Re-enter Password</label>
+    //     <input className="registerInput" type="password" placeholder="Re-Enter Password" onChange={e=>setDetails({...details, repassword: e.target.value})} value={details.repassword} required/>
+    //     <label>Role</label>
+    //     <input className="registerInput" name="role" type="text" placeholder="Enter Roles" onChange={e=>setDetails({...details, role: e.target.value})} value={details.role} required/>
+    //     <button className="registerButton" onClick={submitHandler}>Register</button>
+    //   </form>
+    //   </div></div>
      
-    </div>
+    // </div>
+
+
+<div className="register">
+      <div className="outer">
+        <div className="inner">
+          <form>
+
+            <h3>Register</h3>
+
+            <div className="form-group">
+              <label>First Name</label>
+              <input className="form-control" name="firstname" type="text" placeholder="Enter First Name" onChange={e=>setDetails({...details, firstname: e.target.value})} value={details.firstname} required/>
+            </div>
+
+            <div className="form-group">
+              <label>Last Name</label>
+              <input className="form-control" name="lastname" type="text" placeholder="Enter Last Name" onChange={e=>setDetails({...details, lastname: e.target.value})} value={details.lastname} required/>
+            </div>
+
+            <div className="form-group">
+              <label>Email</label>
+              <input className="form-control" name="email" type="email" placeholder="Enter Email" onChange={e=>setDetails({...details, email: e.target.value})} value={details.email} required/>
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input className="form-control" type="password" placeholder="Enter Password" onChange={e=>setDetails({...details, password: e.target.value})} value={details.password} required/>
+            </div>
+
+            <div className="form-group">
+              <label>Re-enter Password</label>
+              <input className="form-control" type="password" placeholder="Re-Enter Password" onChange={e=>setDetails({...details, repassword: e.target.value})} value={details.repassword} required/>
+            </div>
+            <div className="form-group">
+              <label>Role</label>
+              <input className="form-control" name="role" type="text" placeholder="Enter Roles" onChange={e=>setDetails({...details, role: e.target.value})} value={details.role} required/>
+            </div>
+
+
+            <button onClick={submitHandler} className="btn btn-dark btn-lg btn-block" style={{marginTop:"10px", width:"100%"}}>Register</button>
+          </form>
+        </div></div></div>
+
+    
     )
 }
