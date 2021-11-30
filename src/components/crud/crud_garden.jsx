@@ -1,6 +1,6 @@
 
 import "./crud_building.css";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRow";
@@ -29,7 +29,27 @@ export default function CrudGarden() {
     buildingNumber: "",
    
   });
-
+  const [item, setItem] = useState([]);
+  useEffect(()=>{
+      fetch("http://127.0.0.1:8000/api/dashboardGarden")
+      .then(res => res.json())
+      .then(
+   
+        (result)=>{
+          let transformArray;
+            console.log(result);
+            transformArray =  result.garden.map(item =>{
+              return {
+                gardenName: item.sname,
+                buildingNumber: item.sid,
+                //id: item.sid
+              }
+            });
+            console.log("test:::",transformArray);
+            setContacts(transformArray)
+        }
+    )
+  },[]);
   const [editContactId, setEditContactId] = useState(null);
 
   const handleAddFormChange = (event) => {
@@ -69,7 +89,7 @@ export default function CrudGarden() {
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
-    axios.post('http://localhost:8888/reactProject/addGarden.php',newContact)
+    axios.post('http://127.0.0.1:8000/api/addGarden',newContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be inserted. Try again")
@@ -95,7 +115,7 @@ export default function CrudGarden() {
 
     setContacts(newContacts);
     console.log(newContacts)
-    axios.post('http://localhost:8888/reactProject/editGarden.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/editGarden',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated. Try again")
@@ -121,19 +141,19 @@ export default function CrudGarden() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (gardenName) => {
-    let data = {
-      gardenName:gardenName
-    }
+  const handleDeleteClick = (id) => {
+    // let data = {
+    //   gardenName:gardenName
+    // }
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.gardenName === gardenName);
+    const index = contacts.findIndex((contact) => contact.id === id);
 
     newContacts.splice(index, 1);
 
    setContacts(newContacts);
-    console.log(gardenName)
-    axios.post('http://localhost:8888/reactProject/deleteGarden.php',data)
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deleteGarden',{ data: { id: id } })
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be deleted. Try again")

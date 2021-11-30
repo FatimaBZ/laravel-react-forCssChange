@@ -54,6 +54,7 @@ export default function Login(props) {
       console.log('hi',json_array);
       console.log("role",json_array.rolename);
       if(json_array.rolename=="Resident"){
+        
         history.push("/resident_home");
         //console.log("res");
       }
@@ -122,10 +123,10 @@ export default function Login(props) {
               <input type="password" id="password" className="form-control" placeholder="Enter password" required="" onChange={e=>setDetails({...details, password: e.target.value})} value={details.password}/> 
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label>Role</label>
               <input type="text" id="role" className="form-control" placeholder="Enter Role (Admin, Manager, Resident)" onChange={e=>setDetails({...details, role: e.target.value})} value={details.role} />
-            </div>
+            </div> */}
 
 
             <button onClick={submitHandler} className="btn btn-dark btn-lg btn-block" style={{marginTop:"10px", width:"100%"}}>Sign in</button>
