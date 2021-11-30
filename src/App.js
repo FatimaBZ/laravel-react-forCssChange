@@ -24,6 +24,7 @@ import AdminVisitorCrudGarden from "./components/crud/crud_visitor_garden"
 import ResidentRequestService from './pages/resident/resident_request_service';
 import ResidentServiceDetails from './pages/resident/resident_service_details';
 import ResidentInquiry from './pages/resident/resident_inquiry';
+import Footer from './components/footer/Footer';
 
 import UserData from "./components/data/userData";
 import OwnerData from "./components/data/OwnerData";
@@ -217,6 +218,7 @@ function App() {
 
     </Route>  
       </Switch>
+      <Footer />
       </div>
     </Router>
   );
