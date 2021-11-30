@@ -209,7 +209,7 @@ export default function ManagerHome() {
                     <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-list fa-2x"></i></p>
                       <Card.Title><h4 style={{ textAlign: 'center' }}>Register Buildings</h4></Card.Title></Card.Title>
                     <Card.Text>
-                      Whenever a building requires any maintenance or tenant issues, Lunar Management is ready to help.
+                      Whenever a building requires any maintenance or tenant issues, Lunamar Management is ready to help.
                     </Card.Text>
                     <p style={{ textAlign: 'center' }}><a href="/admin_building_crud"> <Button variant="primary">Click here</Button> </a> </p>
                   </Card.Body>

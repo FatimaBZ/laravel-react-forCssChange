@@ -3,12 +3,13 @@ import React, { useState, useEffect} from 'react'
 const AptData = () =>{
     const [item, setItem] = useState([]);
     useEffect(()=>{
-        fetch("http://localhost:8888/reactProject/dashboardGarden.php")
+        fetch("http://127.0.0.1:8000/api/dashboardGarden")
         .then(res => res.json())
         .then(
             (result)=>{
+                
                 console.log(result)
-                setItem(result)
+                setItem(result.garden)
             }
         )
     },[])

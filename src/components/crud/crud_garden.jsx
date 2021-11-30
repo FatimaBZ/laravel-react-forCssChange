@@ -29,7 +29,7 @@ export default function CrudGarden() {
     buildingNumber: "",
    
   });
-  const [item, setItem] = useState([]);
+  //const [item, setItem] = useState([]);
   useEffect(()=>{
       fetch("http://127.0.0.1:8000/api/dashboardGarden")
       .then(res => res.json())
@@ -126,7 +126,7 @@ export default function CrudGarden() {
 
   const handleEditClick = (event, contact) => {
     event.preventDefault();
-    setEditContactId(contact.id);
+    setEditContactId(contact.buildingNumber);
 
     const formValues = {
       gardenName: contact.gardenName,
@@ -175,7 +175,7 @@ export default function CrudGarden() {
           <tbody>
             {contacts.map((contact) => (
               <Fragment>
-                {editContactId === contact.id ? (
+                {editContactId === contact.buildingNumber ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}

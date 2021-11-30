@@ -11,7 +11,7 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter a name..."
+          placeholder="Enter pool name..."
           name="poolName"
           value={editFormData.poolName}
           onChange={handleEditFormChange}
@@ -21,9 +21,9 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter an building.."
-          name="buildingName"
-          value={editFormData.buildingName}
+          placeholder="Enter details.."
+          name="details"
+          value={editFormData.details}
           onChange={handleEditFormChange}
         ></input>
       </td>
