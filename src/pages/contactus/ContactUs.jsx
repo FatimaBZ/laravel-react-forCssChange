@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import emailjs from "emailjs-com";
 import "./contactus.css";
+import { Card } from "react-bootstrap";
 
 export default function ContactUs(e) {
   const form = useRef();
@@ -71,11 +72,15 @@ export default function ContactUs(e) {
   };
   return (
     <div className="contactus">
-      <span className="registerTitle">Contact Us</span>
-      <form ref={form} className="registerForm">
+          <div className="outer">
+        <div className="inner">
+  
+      <form ref={form}>
+      <h3>Contact Us</h3>
+      <div className="form-group">
         <label>First Name</label>
         <input
-          className="registerInput"
+         className="form-control" 
           type="text"
           name="fname"
           placeholder="Enter your First Name..."
@@ -83,9 +88,11 @@ export default function ContactUs(e) {
           value={details.fname}
           required
         />
+        </div>   <div className="form-group">
+
         <label>Last Name</label>
         <input
-          className="registerInput"
+        className="form-control" 
           type="text"
           name ="lname"
           placeholder="Enter your Last Name..."
@@ -93,9 +100,11 @@ export default function ContactUs(e) {
           value={details.lname}
           required
         />
+        </div>
+        <div className="form-group">
         <label>Phone number</label>
         <input
-          className="registerInput"
+          className="form-control" 
           type="number"
           name = "phone"
           placeholder="Enter your number..."
@@ -103,9 +112,11 @@ export default function ContactUs(e) {
           value={details.phone}
           required
         />
+        </div>
+        <div className="form-group">
         <label>Email</label>
         <input
-          className="registerInput"
+         className="form-control" 
           type="email"
           name="email"
           placeholder="Enter your email..."
@@ -113,9 +124,11 @@ export default function ContactUs(e) {
           value={details.email}
           required
         />
+        </div>
+        <div className="form-group">
         <label>Query</label>
         <textarea
-          className="registerInputText"
+          className="form-control" 
           type="text"
           name = "query"
           placeholder="Enter your query..."
@@ -123,7 +136,8 @@ export default function ContactUs(e) {
           value={details.query}
           required
         />
-        <button className="registerButton" onClick={submitHandler}>
+        </div>
+        <button onClick={submitHandler} className="btn btn-dark btn-lg btn-block" style={{marginTop:"10px", width:"100%"}}>
           Submit
         </button>
         <div>
@@ -133,6 +147,7 @@ export default function ContactUs(e) {
          }
       </div>
       </form>
+      </div></div>
     </div>
   );
 }

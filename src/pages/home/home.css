@@ -5,3 +5,9 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  .font-title {
+   font-family: 'Montserrat';
+   font-weight: 800;
+   color: #333333;
+  }

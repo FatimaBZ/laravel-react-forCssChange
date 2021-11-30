@@ -54,6 +54,9 @@ import Services from "./pages/services/Services";
 import Chat from "./pages/chat/chat";
 import AdminDashboard from "./pages/admin/admin_dashboard";
 import FileUpload from "./pages/resident/file_Upload";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(getItemFromStorage("user"))
@@ -71,6 +74,7 @@ function App() {
 
   return (
     <Router>
+      <div className="container-fluid">
       <TopBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       <Switch>
         <Route exact path="/">
@@ -213,6 +217,7 @@ function App() {
 
     </Route>  
       </Switch>
+      </div>
     </Router>
   );
 }
