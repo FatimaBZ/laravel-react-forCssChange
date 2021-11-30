@@ -15,7 +15,7 @@ const EditableRow = ({
           name="firstName"
           value={editFormData.firstName}
           onChange={handleEditFormChange}
-          readonly ></input>
+          ></input>
       </td>
       <td>
         <input
@@ -25,17 +25,17 @@ const EditableRow = ({
           name="lastName"
           value={editFormData.lastName}
           onChange={handleEditFormChange}
-          readonly></input>
+       ></input>
       </td>
       <td>
         <input
            type="text"
-           name="ApartmentNumber"
+           name="gname"
            required="required"
            placeholder="Enter an apt#"
           value={editFormData.anum}
           onChange={handleEditFormChange}
-          readonly></input>
+          ></input>
       </td>
       <td>
         <input
@@ -45,7 +45,7 @@ const EditableRow = ({
           placeholder="Query"
           value={editFormData.message}
           onChange={handleEditFormChange}
-          readonly></input>
+       ></input>
       </td>
       <td>
         <button type="submit">Save</button>

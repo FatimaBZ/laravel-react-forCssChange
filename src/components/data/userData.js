@@ -3,12 +3,12 @@ import React, { useState, useEffect} from 'react'
 const UserData = () =>{
     const [item, setItem] = useState([]);
     useEffect(()=>{
-        fetch("http://localhost:8888/reactProject/dashboardUser.php")
+        fetch("http://127.0.0.1:8000/api/dashboardUser")
         .then(res => res.json())
         .then(
             (result)=>{
                 console.log(result)
-                setItem(result)
+                setItem(result.user)
             }
         )
     },[])

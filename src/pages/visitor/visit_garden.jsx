@@ -24,7 +24,7 @@ export default function VisitGarden() {
      
     };
 console.log(obj);
-axios.post('http://localhost:8888/reactProject/visitor_garden.php',obj)
+axios.post('http://127.0.0.1:8000/api/visitorGardenInquiry',obj)
 .then(res=> console.log(res.data))
 .catch(error => {
   console.log(error.response)

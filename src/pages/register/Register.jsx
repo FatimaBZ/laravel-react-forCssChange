@@ -66,7 +66,7 @@ export default function Register() {
 
         };
     console.log(obj);
-    axios.post('http://localhost:8888/reactProject/register.php',obj)
+    axios.post('http://127.0.0.1:8000/api/addUser',obj)
     .then(res=> console.log(res.data))
     .catch(error => {
       alert("Data could not be inserted. Try again")

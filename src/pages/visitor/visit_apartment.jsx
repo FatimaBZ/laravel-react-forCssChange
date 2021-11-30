@@ -25,7 +25,7 @@ export default function VisitApt() {
      
     };
 console.log(obj);
-axios.post('http://localhost:8888/reactProject/visitor_apt.php',obj)
+axios.post('http://127.0.0.1:8000/api/visitorApartmentInquiry',obj)
 .then(res=> console.log(res.data))
 .catch(error => {
   console.log(error.response)

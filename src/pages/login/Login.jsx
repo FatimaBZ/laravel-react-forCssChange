@@ -47,10 +47,12 @@ export default function Login(props) {
         };
         
     console.log(obj);
-    axios.post('http://localhost:8888/reactProject/login.php',obj)
+    axios.post('http://127.0.0.1:8000/api/user-login',obj)
     .then(res=> {
-      let json_array = res.data[0];
-      console.log(json_array);
+      let json_array = res.data.data;
+      
+      console.log('hi',json_array);
+      console.log("role",json_array.rolename);
       if(json_array.rolename=="Resident"){
         history.push("/resident_home");
         //console.log("res");

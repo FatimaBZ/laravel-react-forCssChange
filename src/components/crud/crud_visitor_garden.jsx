@@ -3,41 +3,42 @@ import "./crud_building.css";
 import React, { useState, Fragment,useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
-import ReadOnlyRow from "./ReadOnlyRowOwner";
-import EditableRow from "./EditableRowOwner";
-import axios from "axios";
+import ReadOnlyRow from "./ReadOnlyRowVisitorGarden";
+import EditableRow from "./EditableRowVisitorGarden";
+import axios from  "axios";
 const data = [
   {
-    "id": 1,
-    "apartmentNumber": "01",
-    "firstName": "Jenny",
-    "lastName": "Chan",
-    "ownerId": "02",
+    "id": "",
+    "firstName": "",
+    "lastName": "",
+    "apartmentNumber": "",
+    "gname": "",
+    "msg":"",
   },
-  
  
 ]
 
 
-export default function CrudOwner() {
+export default function CrudVisitor() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    apartmentNumber: "",
     firstName: "",
     lastName: "",
-    ownerId: "",
+    apartmentNumber: "",
+    gname: "",
+    msg:"",
   });
 
   const [editFormData, setEditFormData] = useState({
-    apartmentNumber: "",
     firstName: "",
     lastName: "",
-    ownerId: "",
+    apartmentNumber: "",
+    gname: "",
+    msg:"",
   });
-  
  
   useEffect(()=>{
-    fetch("http://127.0.0.1:8000/api/dashboardOwner",{
+    fetch("http://127.0.0.1:8000/api/dashboardVisitor",{
         headers : { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -50,13 +51,14 @@ export default function CrudOwner() {
         (result)=>{
           let transformArray;
             console.log(result);
-            transformArray =  result.apartment.map(item =>{
+            transformArray =  result.visitorlist.map(item =>{
               return {
-                apartmentNumber: item.anum,
-                // firstName: item.firstname,
-                // lastName: item.lasstname,
-                ownerId:item.ownerid,
-            
+                firstName: item.fname,
+                lastName: item.lname,
+                aptnum: item.anum,
+                gname:item.gardenName,
+                msg:item.message,
+                id: item.id
               }
             });
             console.log("test:::",transformArray);
@@ -64,23 +66,18 @@ export default function CrudOwner() {
         }
     )
 },[]);
-
-
   const [editContactId, setEditContactId] = useState(null);
 
   const handleAddFormChange = (event) => {
     event.preventDefault();
-
-    console.log(event);
 
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     const newFormData = { ...addFormData };
     newFormData[fieldName] = fieldValue;
+
     setAddFormData(newFormData);
-    console.log("New form data  ",newFormData);
-    
   };
 
   const handleEditFormChange = (event) => {
@@ -93,8 +90,6 @@ export default function CrudOwner() {
     newFormData[fieldName] = fieldValue;
 
     setEditFormData(newFormData);
-    console.log("New Form Data ",newFormData)
-  
   };
 
   const handleAddFormSubmit = (event) => {
@@ -102,21 +97,22 @@ export default function CrudOwner() {
 
     const newContact = {
       id: nanoid(),
-      apartmentNumber: addFormData.apartmentNumber,
       firstName: addFormData.firstName,
       lastName: addFormData.lastName,
-      ownerId: addFormData.ownerId,
+      apartmentNumber: addFormData.anum,
+      gname: addFormData.gname,
+      msg: addFormData.message,
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
- axios.post('http://localhost:8888/reactProject/addOwner.php',newContact)
-.then(res=> console.log(res.data))
-.catch(error => {
-  alert("Data could not be inserted. Try again")
-  console.log(error.response)
-     });
+    axios.post('http://127.0.0.1:8000/api/visitorGardenInquiry',newContact)
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be inserted. Try again")
+     console.log(error.response)
+        });
   };
 
   const handleEditFormSubmit = (event) => {
@@ -124,13 +120,13 @@ export default function CrudOwner() {
 
     const editedContact = {
       id: editContactId,
-      apartmentNumber: editFormData.apartmentNumber,
       firstName: editFormData.firstName,
       lastName: editFormData.lastName,
-      ownerId: editFormData.ownerId,
-  
+      apartmentNumber: editFormData.anum,
+      gname: editFormData.gname,
+      msg: editFormData.message,
     };
-
+ 
     const newContacts = [...contacts];
 
     const index = contacts.findIndex((contact) => contact.id === editContactId);
@@ -138,16 +134,13 @@ export default function CrudOwner() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    console.log(newContacts)
-    axios.post('http://localhost:8888/reactProject/editOwner.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/updateVisitor',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
      console.log(error.response)
         });
     setEditContactId(null);
-
-   
   };
 
   const handleEditClick = (event, contact) => {
@@ -155,11 +148,11 @@ export default function CrudOwner() {
     setEditContactId(contact.id);
 
     const formValues = {
-      
-      apartmentNumber: contact.apartmentNumber,
       firstName: contact.firstName,
-      lastName: contact.lastname,
-      ownerId: contact.ownerId
+      lastName: contact.lastName,
+      aptnum: contact.anum,
+      gname: contact.gname,
+      msg:contact.message,
     };
 
     setEditFormData(formValues);
@@ -169,23 +162,25 @@ export default function CrudOwner() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (apartmentNumber) => {
-     let data = {apartmentNumber:apartmentNumber}
-     const newContacts = [...contacts];
+  const handleDeleteClick = (id) => {
+   // let data = {id:id}
+    const newContacts = [...contacts];
 
-     const index = contacts.findIndex((contact) => contact.apartmentNumber === apartmentNumber);
- 
-     newContacts.splice(index, 1);
- 
-     setContacts(newContacts);
-    console.log(apartmentNumber)
- axios.post('http://localhost:8888/reactProject/deleteOwner.php',data)
-.then(res=> console.log(res.data))
-.catch(error => {
-  alert("Data could not be deleted. Try again")
-  console.log(error.response)
-     });
+    const index = contacts.findIndex((contact) => contact.id === id);
+
+    newContacts.splice(index, 1);
+
+    setContacts(newContacts);
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deleteVisitor',{ data: { id: id } })
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be deleted. Try again")
+     console.log(error.response)
+        });
   };
+
+  
 
   return (
     <div className="app-container">
@@ -193,11 +188,12 @@ export default function CrudOwner() {
         <table>
           <thead>
             <tr>
-              
-              <th>Apartment Number</th>
-              {/* <th>First Name</th>
-              <th>Last Name</th> */}
-              <th>Owner Id</th>
+            {/* <th>ID</th> */}
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>APARTMENT# REQUESTED FOR VISIT</th>
+            <th>GARDEN REQUESTED FOR VISIT</th>
+            <th>QUERY</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -222,42 +218,42 @@ export default function CrudOwner() {
           </tbody>
         </table>
       </form>
-
-      <h2>Assign an apartment to its owner  </h2>
+     
+      <h2>Add a Visitor Inquiry for garden visit</h2>
       <form onSubmit={handleAddFormSubmit}>
-       <input
-          type="text"
-          name="apartmentNumber"
-          required="required"
-          placeholder="Enter apartment#"
-          onChange={handleAddFormChange}
-        />
-        {/* <input
+        <input
           type="text"
           name="firstName"
-          required=""
-          placeholder="Enter first name"
+          required="required"
+          placeholder="Enter first name..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
           name="lastName"
-          required=""
-          placeholder="Enter last name"
-          onChange={handleAddFormChange}
-        /> */}
-        <input
-          type="text"
-          name="ownerId"
           required="required"
-          placeholder="Enter owner id"
+          placeholder="Enter last name..."
           onChange={handleAddFormChange}
         />
-        <button type="submit" >Add</button>
+         <input
+          type="text"
+          name="gname"
+          required="required"
+          placeholder="Enter a garden name"
+          onChange={handleAddFormChange}
+        />
+       <input
+          type="text"
+          name="message"
+          required="required"
+          placeholder="Query"
+          onChange={handleAddFormChange}
+        />
+        <button type="submit">Add</button>
       </form>
       <div className="links">{
         <>
-        <a href="/crud_apartment">Register an apartment</a><br/>
+        <a href="/admin_visitor_crud">Add a Visitor Inquiry for apartment visit</a><br/>
        
         </>
         

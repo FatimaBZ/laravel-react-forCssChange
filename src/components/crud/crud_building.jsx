@@ -1,6 +1,6 @@
 
 import "./crud_building.css";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRowBuilding";
@@ -29,6 +29,36 @@ export default function CrudBuilding() {
     buildingName: "",
     address: ""
   });
+  
+  
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardBuilding",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          let transformArray;
+            console.log(result);
+            transformArray =  result.building.map(item =>{
+              return {
+                buildingName: item.bname,
+                address: item.baddress,
+                id: item.bnum
+              }
+            });
+            console.log("test:::",transformArray);
+            setContacts(transformArray)
+        }
+    )
+},[]);
+
+
 
   const [editContactId, setEditContactId] = useState(null);
 
@@ -69,7 +99,7 @@ export default function CrudBuilding() {
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
- axios.post('http://localhost:8888/reactProject/addBuilding.php',newContact)
+ axios.post('http://127.0.0.1:8000/api/addBuilding',newContact)
 .then(res=> console.log(res.data))
 .catch(error => {
   alert("Data could not be inserted. Try again")
@@ -93,7 +123,7 @@ export default function CrudBuilding() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    axios.post('http://localhost:8888/reactProject/editBuilding.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/updateBuilding',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
@@ -118,16 +148,17 @@ export default function CrudBuilding() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (buildingName) => {
-    let data = {buildingName:buildingName}
+  const handleDeleteClick = (buildingId) => {
+    //let data = {buildingName:buildingName}
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.buildingName === buildingName);
+    const index = contacts.findIndex((contact) => contact.id === buildingId);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    axios.post('http://localhost:8888/reactProject/deleteBuilding.php',data)
+   // console.log("Building name", data);
+    axios.delete('http://127.0.0.1:8000/api/building',{ data: { buildingId: buildingId } })
     .then(res=> console.log(res.data))
     .catch(error => {
       alert("Data could not be deleted. Try again")

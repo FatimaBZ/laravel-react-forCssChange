@@ -64,7 +64,14 @@ export default function AdminHome() {
               </a>
             </h3>
           </div>
-          
+          <div class="divider"/>
+          <div className="service-col" id="validate">
+            <h3>
+              <a href="/crud_manager">
+                Register/Manage Manager
+              </a>
+            </h3>
+          </div>
         </div>
       </section>
     </div>

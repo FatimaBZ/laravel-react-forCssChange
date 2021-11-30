@@ -20,7 +20,7 @@ import AdminBuildingCrud from "./pages/admin/admin_building_crud";
 import AdminGardenCrud from "./pages/admin/admin_garden";
 import AdminApartmentCrud from "./pages/admin/admin_owner_crud";
 import AdminVisitorCrud from "./pages/admin/admin_visitor";
-
+import AdminVisitorCrudGarden from "./components/crud/crud_visitor_garden"
 import ResidentRequestService from './pages/resident/resident_request_service';
 import ResidentServiceDetails from './pages/resident/resident_service_details';
 import ResidentInquiry from './pages/resident/resident_inquiry';
@@ -34,7 +34,7 @@ import VisitorData from "./components/data/VisitorData";
 import ServiceRequestData from "./components/data/ServiceRequestData";
 import GardenData from "./components/data/GardenData";
 import PlantData from "./components/data/PlantData";
-
+import CrudManager from "./components/crud/crud_manager";
 import VisitorHome from "./pages/visitor/visitor_home";
 
 import VisitApt from "./pages/visitor/visit_apartment";
@@ -138,6 +138,9 @@ function App() {
         <Route exact path="/admin_visitor_crud">
           <AdminVisitorCrud/>
         </Route>
+        <Route exact path="/admin_visitor_crud_garden">
+          <AdminVisitorCrudGarden/>
+        </Route>
         <Route exact path="/resident_home">
           <ResidentHome/>
         </Route>
@@ -204,7 +207,11 @@ function App() {
         <FileUpload/>
 
         </Route>
-        
+        <Route exact path="/crud_manager">
+
+    <CrudManager/>
+
+    </Route>  
       </Switch>
     </Router>
   );

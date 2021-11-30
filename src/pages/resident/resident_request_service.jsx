@@ -34,7 +34,7 @@ export default function ResidentRequestService() {
     //       console.log(error.response)
     //          });
 
-      axios.post('http://localhost:8888/reactProject/residentService.php',obj)
+      axios.post('http://127.0.0.1:8000/api/storeServiceIncident',obj)
         .then(res=> console.log(res.data))
         .catch(error => {
           alert("Service request failed. Try again")

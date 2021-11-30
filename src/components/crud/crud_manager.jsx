@@ -1,34 +1,39 @@
-
 import "./crud_building.css";
 import React, { useState, Fragment,useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
-import ReadOnlyRow from "./ReadOnlyRowApartment";
-import EditableRow from "./EditableRowApartment";
-import axios from "axios";
+import ReadOnlyRow from "./ReadOnlyRowManager";
+import EditableRow from "./EditableRowManager";
+import axios from  "axios";
 const data = [
   {
-    "apartmentNumber": "",
-    "buildingNumber": "",
+    "id": "",
+    "firstName": "",
+    "lastName": "",
+  //  "passwrd": "",
+    "email": ""
   },
-  
  
 ]
 
 
-export default function CrudApartment() {
+export default function CrudManager() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    apartmentNumber: "",
-    buildingNumber:"",
+    firstName: "",
+    lastName: "",
+   // passwrd: "",
+    email: "",
   });
 
   const [editFormData, setEditFormData] = useState({
-    apartmentNumber: "",
-    buildingNumber:"",
+    firstName: "",
+    lastName: "",
+   // passwrd: "",
+    email: "",
   });
-  useEffect(()=>{
-    fetch("http://127.0.0.1:8000/api/dashboardApartment",{
+    useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardManager",{
         headers : { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -41,11 +46,13 @@ export default function CrudApartment() {
         (result)=>{
           let transformArray;
             console.log(result);
-            transformArray =  result.apartment.map(item =>{
+            transformArray =  result.manager.map(item =>{
               return {
-                apartmentNumber: item.anum,
-                buildingNumber: item.bnum,
-                
+                firstName: item.fname,
+                lastName: item.lname,
+                // passwrd: item.passwrd,
+                email:item.email,
+                id: item.empid
               }
             });
             console.log("test:::",transformArray);
@@ -58,16 +65,13 @@ export default function CrudApartment() {
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
-    console.log(event);
-
     const fieldName = event.target.getAttribute("name");
     const fieldValue = event.target.value;
 
     const newFormData = { ...addFormData };
     newFormData[fieldName] = fieldValue;
+
     setAddFormData(newFormData);
-    console.log("New form data  ",newFormData);
-    
   };
 
   const handleEditFormChange = (event) => {
@@ -80,8 +84,6 @@ export default function CrudApartment() {
     newFormData[fieldName] = fieldValue;
 
     setEditFormData(newFormData);
-    console.log("New Form Data ",newFormData)
-  
   };
 
   const handleAddFormSubmit = (event) => {
@@ -89,19 +91,21 @@ export default function CrudApartment() {
 
     const newContact = {
       id: nanoid(),
-      apartmentNumber: addFormData.apartmentNumber,
-      buildingNumber: addFormData.buildingNumber,
+      firstName: addFormData.firstName,
+      lastName: addFormData.lastName,
+      //passwrd: addFormData.passwrd,
+      email: addFormData.email,
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
- axios.post('http://127.0.0.1:8000/api/addApartment',newContact)
-.then(res=> console.log(res.data))
-.catch(error => {
-  alert("Data could not be inserted. Try again")
-  console.log(error.response)
-     });
+    axios.post('http://localhost:8888/reactProject/addManager.php',newContact)
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be inserted. Try again")
+     console.log(error.response)
+        });
   };
 
   const handleEditFormSubmit = (event) => {
@@ -109,11 +113,12 @@ export default function CrudApartment() {
 
     const editedContact = {
       id: editContactId,
-      apartmentNumber: editFormData.apartmentNumber,
-      buildingNumber: editFormData.buildingNumber,
-  
+      firstName: editFormData.firstName,
+      lastName: editFormData.lastName,
+     // passwrd: editFormData.passwrd,
+      email: editFormData.email,
     };
-
+ 
     const newContacts = [...contacts];
 
     const index = contacts.findIndex((contact) => contact.id === editContactId);
@@ -121,53 +126,49 @@ export default function CrudApartment() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    console.log(newContacts)
-    axios.put('http://127.0.0.1:8000/api/updateApartment',editedContact)
+    axios.post('http://localhost:8888/reactProject/editManager.php',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
      console.log(error.response)
         });
     setEditContactId(null);
-
-   
   };
 
   const handleEditClick = (event, contact) => {
     event.preventDefault();
-    console.log("contact.id::",contact.apartmentNumber)
-    setEditContactId(contact.apartmentNumber);
+    setEditContactId(contact.id);
 
     const formValues = {
-      
-      apartmentNumber: contact.apartmentNumber,
-      buildingNumber: contact.buildingNumber,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+     // passwrd: contact.passwrd,
+      email: contact.email,
     };
 
     setEditFormData(formValues);
-    console.log("handle edit click")
   };
 
   const handleCancelClick = () => {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (apartmentNumber) => {
-     let data = {apartmentNumber:apartmentNumber}
+  const handleDeleteClick = (email) => {
+    let data = {email:email}
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.apartmentNumber === apartmentNumber);
+    const index = contacts.findIndex((contact) => contact.email === email);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    console.log(apartmentNumber)
- axios.delete('http://127.0.0.1:8000/api/deleteApartment',{ data: { apartmentNumber: apartmentNumber } })
-.then(res=> console.log(res.data))
-.catch(error => {
-  alert("Data could not be deleted. Try again")
-  console.log(error.response)
-     });
+    console.log(email)
+    axios.post('http://localhost:8888/reactProject/deleteManager.php',data)
+   .then(res=> console.log(res.data))
+   .catch(error => {
+     alert("Data could not be deleted. Try again")
+     console.log(error.response)
+        });
   };
 
   return (
@@ -176,16 +177,17 @@ export default function CrudApartment() {
         <table>
           <thead>
             <tr>
-              
-              <th>Apartment Number</th>
-              <th>Building Number</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              {/* <th>Password</th> */}
+              <th>Email</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {contacts.map((contact) => (
               <Fragment>
-                {editContactId === contact.apartmentNumber ? (
+                {editContactId === contact.id ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
@@ -204,34 +206,38 @@ export default function CrudApartment() {
         </table>
       </form>
 
-      <h2>Add Apartment </h2>
+      <h2>Add a Manager</h2>
       <form onSubmit={handleAddFormSubmit}>
-       <input
-          type="number"
-          name="apartmentNumber"
-          required="required"
-          placeholder="Enter apartment#"
-          onChange={handleAddFormChange}
-        />
-        
         <input
-          type="number"
-          name="buildingNumber"
+          type="text"
+          name="firstName"
           required="required"
-          placeholder="Enter building #"
+          placeholder="Enter first name..."
           onChange={handleAddFormChange}
         />
-        <button type="submit" >Add</button>
+        <input
+          type="text"
+          name="lastName"
+          required="required"
+          placeholder="Enter last name..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="password"
+          name="passwrd"
+          required="required"
+          placeholder="Enter a password..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="email"
+          name="email"
+          required="required"
+          placeholder="Enter an email..."
+          onChange={handleAddFormChange}
+        />
+        <button type="submit">Add</button>
       </form>
-      <div className="links">{
-        <>
-        <a href="/admin_owner_crud">Assign an apartment to an Owner</a><br/>
-       
-        </>
-        
-      }
-
-      </div>
     </div>
   );
 };

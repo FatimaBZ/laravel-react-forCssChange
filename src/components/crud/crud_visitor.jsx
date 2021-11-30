@@ -1,6 +1,6 @@
 
 import "./crud_building.css";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRowVisitor";
@@ -11,8 +11,9 @@ const data = [
     "id": "",
     "firstName": "",
     "lastName": "",
-    "passwrd": "",
-    "email": ""
+    "apartmentNumber": "",
+    "gname": "",
+    "msg":"",
   },
  
 ]
@@ -23,17 +24,48 @@ export default function CrudVisitor() {
   const [addFormData, setAddFormData] = useState({
     firstName: "",
     lastName: "",
-    passwrd: "",
-    email: "",
+    apartmentNumber: "",
+    gname: "",
+    msg:"",
   });
 
   const [editFormData, setEditFormData] = useState({
     firstName: "",
     lastName: "",
-    passwrd: "",
-    email: "",
+    apartmentNumber: "",
+    gname: "",
+    msg:"",
   });
-
+ 
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardVisitor",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          let transformArray;
+            console.log(result);
+            transformArray =  result.visitorlist.map(item =>{
+              return {
+                firstName: item.fname,
+                lastName: item.lname,
+                aptnum: item.anum,
+                gname:item.gardenName,
+                msg:item.message,
+                id: item.id
+              }
+            });
+            console.log("test:::",transformArray);
+            setContacts(transformArray)
+        }
+    )
+},[]);
   const [editContactId, setEditContactId] = useState(null);
 
   const handleAddFormChange = (event) => {
@@ -67,14 +99,15 @@ export default function CrudVisitor() {
       id: nanoid(),
       firstName: addFormData.firstName,
       lastName: addFormData.lastName,
-      passwrd: addFormData.passwrd,
-      email: addFormData.email,
+      apartmentNumber: addFormData.anum,
+      gname: addFormData.gardenName,
+      msg: addFormData.message,
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
-    axios.post('http://localhost:8888/reactProject/addVisitor.php',newContact)
+    axios.post('http://127.0.0.1:8000/api/visitorApartmentInquiry',newContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be inserted. Try again")
@@ -89,8 +122,9 @@ export default function CrudVisitor() {
       id: editContactId,
       firstName: editFormData.firstName,
       lastName: editFormData.lastName,
-      passwrd: editFormData.passwrd,
-      email: editFormData.email,
+      apartmentNumber: editFormData.anum,
+      gname: editFormData.gardenName,
+      msg: editFormData.message,
     };
  
     const newContacts = [...contacts];
@@ -100,7 +134,7 @@ export default function CrudVisitor() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    axios.post('http://localhost:8888/reactProject/editVisitor.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/updateVisitor',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
@@ -116,8 +150,9 @@ export default function CrudVisitor() {
     const formValues = {
       firstName: contact.firstName,
       lastName: contact.lastName,
-      passwrd: contact.passwrd,
-      email: contact.email,
+      apartmentNumber: contact.anum,
+      gname: contact.gardenName,
+      msg:contact.message,
     };
 
     setEditFormData(formValues);
@@ -127,17 +162,17 @@ export default function CrudVisitor() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (email) => {
-    let data = {email:email}
+  const handleDeleteClick = (id) => {
+   // let data = {id:id}
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.email === email);
+    const index = contacts.findIndex((contact) => contact.id === id);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    console.log(email)
-    axios.post('http://localhost:8888/reactProject/deleteVisitor.php',data)
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deleteVisitor',{ data: { id: id } })
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be deleted. Try again")
@@ -145,16 +180,20 @@ export default function CrudVisitor() {
         });
   };
 
+  
+
   return (
     <div className="app-container">
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Password</th>
-              <th>Email</th>
+            {/* <th>ID</th> */}
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>APARTMENT# REQUESTED FOR VISIT</th>
+            <th>GARDEN REQUESTED FOR VISIT</th>
+            <th>QUERY</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -180,7 +219,7 @@ export default function CrudVisitor() {
         </table>
       </form>
 
-      <h2>Add a Visitor</h2>
+      <h2>Add a Visitor Apartment Inquiry</h2>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
@@ -198,20 +237,30 @@ export default function CrudVisitor() {
         />
         <input
           type="text"
-          name="passwrd"
+          name="ApartmentNumber"
           required="required"
-          placeholder="Enter a password..."
+          placeholder="Enter an apt#"
           onChange={handleAddFormChange}
         />
         <input
-          type="email"
-          name="email"
+          type="text"
+          name="message"
           required="required"
-          placeholder="Enter an email..."
+          placeholder="Query"
           onChange={handleAddFormChange}
         />
         <button type="submit">Add</button>
       </form>
+      <div className="links">{
+        <>
+        <a href="/admin_visitor_crud_garden">Add a Visitor Inquiry for garden visit</a><br/>
+       
+        </>
+        
+      }
+
+      </div>
+      
     </div>
   );
 };

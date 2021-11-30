@@ -53,7 +53,7 @@ export default function ContactUs(e) {
     const axios = require('axios');
     axios({
       method: 'post',
-      url: 'http://localhost:8888/reactProject/contact.php',
+      url: 'http://127.0.0.1:8000/api/contact',
       headers: { 'content-type': 'application/json' },
       data: details
     })

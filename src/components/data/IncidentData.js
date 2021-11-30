@@ -3,12 +3,12 @@ import React, { useState, useEffect} from 'react'
 const IncidentData = () =>{
     const [item, setItem] = useState([]);
     useEffect(()=>{
-        fetch("http://localhost:8888/reactProject/dashboardIncident.php")
+        fetch("http://127.0.0.1:8000/api/dashboardIncident")
         .then(res => res.json())
         .then(
             (result)=>{
-                console.log(result)
-                setItem(result)
+                console.log('Incident',result.incident)
+                setItem(result.incident)
             }
         )
     },[])
@@ -36,9 +36,9 @@ const IncidentData = () =>{
                             <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{item.incident}</td>
-                                <td>{item.ownerid}</td>
-                                <td>{item.fname}</td>
-                                <td>{item.lname}</td>
+                                <td>{item.empid}</td>
+                                <td>{item.firstname}</td>
+                                <td>{item.lastname}</td>
                             </tr>
                         )
                         )
