@@ -1,5 +1,5 @@
 import "./managerhome.css";
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import CardGroup from 'react-bootstrap/CardGroup'
@@ -13,8 +13,25 @@ export default function ManagerHome() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const data = { users: 100, visitors: 22, openRequests: 50, incidents: 35, totalApartments: 30, ownedApartments: 20, totalBuildings: 500, totalGarden: 20, totalPlants: 36 };
-
+  //const data = { users: 100, visitors: 22, openRequests: 50, incidents: 35, totalApartments: 30, ownedApartments: 20, totalBuildings: 500, totalGarden: 20, totalPlants: 36 };
+  const [data, setData] = useState([]);
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardData",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          console.log(result);
+            setData(result)
+        }
+    )
+},[]);
   return (
     <div className="AdminHome">
       <section className="adminheader">
@@ -77,7 +94,7 @@ export default function ManagerHome() {
                     <Card.Title><h1 style={{ textAlign: 'center' }}>{data.openRequests}</h1></Card.Title></Card.Title>
                   <Card.Text>
 
-                    Total Open Requests
+                    Total Service Requests
                   </Card.Text>
                   <a href="/service_request_details">Click to view</a>
                 </Card.Body>
