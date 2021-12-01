@@ -93,14 +93,14 @@ export default function CrudManager() {
       id: nanoid(),
       firstName: addFormData.firstName,
       lastName: addFormData.lastName,
-      //passwrd: addFormData.passwrd,
+      passwrd: addFormData.passwrd,
       email: addFormData.email,
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
-    axios.post('http://localhost:8888/reactProject/addManager.php',newContact)
+    axios.post('http://127.0.0.1:8000/api/addManager',newContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be inserted. Try again")
@@ -126,7 +126,7 @@ export default function CrudManager() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    axios.post('http://localhost:8888/reactProject/editManager.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/editManager',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
@@ -153,17 +153,17 @@ export default function CrudManager() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (email) => {
-    let data = {email:email}
+  const handleDeleteClick = (id) => {
+    //let data = {email:email}
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.email === email);
+    const index = contacts.findIndex((contact) => contact.id === id);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    console.log(email)
-    axios.post('http://localhost:8888/reactProject/deleteManager.php',data)
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deleteManager',{ data: { id: id } })
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be deleted. Try again")
