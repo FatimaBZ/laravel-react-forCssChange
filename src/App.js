@@ -42,6 +42,7 @@ import VisitApt from "./pages/visitor/visit_apartment";
 
 import VisitGarden from "./pages/visitor/visit_garden";
 import CrudApartment from "./components/crud/crud_apartment";
+import CrudService from "./components/crud/crud_service_request";
 
 import {
   saveItemToStorage,
@@ -99,6 +100,9 @@ function App() {
         </Route>
         <Route exact path="/manager_home">
           <ManagerHome />
+        </Route>
+        <Route exact path="/service_crud">
+          <CrudService/>
         </Route>
         <Route exact path="/manager_building_crud">
           <ManagerBuildingCrud />
