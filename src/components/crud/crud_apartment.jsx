@@ -204,15 +204,15 @@ export default function CrudApartment() {
         </table>
       </form>
 
-      <h2>Add Apartment </h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Add Apartment </h2>
+      <form onSubmit={handleAddFormSubmit} class="text-center">
        <input
           type="number"
           name="apartmentNumber"
           required="required"
           placeholder="Enter apartment#"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         
         <input
           type="number"
@@ -220,12 +220,12 @@ export default function CrudApartment() {
           required="required"
           placeholder="Enter building #"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <button type="submit" >Add</button>
       </form>
       <div className="links">{
         <>
-        <a href="/admin_owner_crud">Assign an apartment to an Owner</a><br/>
+        <a href="/admin_owner_crud" class="text-center">Assign an apartment to an Owner</a><br/>
        
         </>
         

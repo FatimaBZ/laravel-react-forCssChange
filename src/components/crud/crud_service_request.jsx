@@ -3,13 +3,13 @@ import "./crud_building.css";
 import React, { useState, Fragment,useEffect} from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
-import ReadOnlyRow from "./ReadOnlyRowIncident";
-import EditableRow from "./EditableRowIncident";
+import ReadOnlyRow from "./ReadOnlyRowService";
+import EditableRow from "./EditableRowService";
 import axios from "axios";
 const data = [
   {
     "id": "",
-    "incidentName": "",
+    "serviceName": "",
     "ownerId": "",
     
   },
@@ -17,21 +17,21 @@ const data = [
 ]
 
 
-export default function CrudIncident() {
+export default function CrudService() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    incidentName: "",
+    serviceName: "",
     ownerId: "",
    
   });
 
   const [editFormData, setEditFormData] = useState({
-    incidentName: "",
+    serviceName: "",
     ownerId: "",
    
   });
   useEffect(()=>{
-    fetch("http://127.0.0.1:8000/api/dashboardIncident",{
+    fetch("http://127.0.0.1:8000/api/dashboardService",{
         headers : { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -44,9 +44,9 @@ export default function CrudIncident() {
         (result)=>{
           let transformArray;
             console.log(result);
-            transformArray =  result.incident.map(item =>{
+            transformArray =  result.service.map(item =>{
               return {
-                incidentName: item.incident,
+                serviceName: item.sname,
                 ownerId: item.empid,
                 id: item.id
               }
@@ -87,14 +87,14 @@ export default function CrudIncident() {
 
     const newContact = {
       id: nanoid(),
-      incidentName: addFormData.incidentName,
+      serviceName: addFormData.serviceName,
       apartmentNumber: addFormData.apartmentNumber,
       
     };
 
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
-    axios.post('http://127.0.0.1:8000/api/addIncident',newContact)
+    axios.post('http://127.0.0.1:8000/api/addService',newContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be inserted. Try again")
@@ -107,7 +107,7 @@ export default function CrudIncident() {
 
     const editedContact = {
       id: editContactId,
-      incidentName: editFormData.incidentName,
+      serviceName: editFormData.serviceName,
       ownerId: editFormData.ownerId,
       
     };
@@ -119,7 +119,7 @@ export default function CrudIncident() {
     newContacts[index] = editedContact;
 
     setContacts(newContacts);
-    axios.put('http://127.0.0.1:8000/api/editIncident',editedContact)
+    axios.put('http://127.0.0.1:8000/api/editService',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated Try again")
@@ -133,7 +133,7 @@ export default function CrudIncident() {
     setEditContactId(contact.id);
 
     const formValues = {
-      incidentName: contact.incidentName,
+      serviceName: contact.serviceName,
       ownerId: contact.ownerId,
      
     };
@@ -154,7 +154,7 @@ export default function CrudIncident() {
 
     setContacts(newContacts);
     console.log(id)
-    axios.delete('http://127.0.0.1:8000/api/deleteIncident',{ data: { id: id } })
+    axios.delete('http://127.0.0.1:8000/api/deleteService',{ data: { id: id } })
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be deleted. Try again")
@@ -163,12 +163,12 @@ export default function CrudIncident() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container" >
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>
             <tr>
-              <th>Incident</th>
+              <th>Service Requested</th>
               <th>User Id Of the Owner</th>
               <th>Actions</th>
             </tr>
@@ -195,13 +195,13 @@ export default function CrudIncident() {
         </table>
       </form>
 
-      <h2 class="text-center">Register an Incident</h2>
+      <h2 class="text-center">Register a Service Request</h2>
       <form onSubmit={handleAddFormSubmit} class="text-center">
         <input
           type="text"
-          name="incidentName"
+          name="serviceName"
           required="required"
-          placeholder="Enter  Incident..."
+          placeholder="Enter service..."
           onChange={handleAddFormChange}
           class="text-center"/>
         <input
@@ -210,12 +210,12 @@ export default function CrudIncident() {
           required="required"
           placeholder="Enter apartment.."
           onChange={handleAddFormChange}
-          class="text-center"/>
+          class="text-center" />
         
         <button type="submit">Add</button>
       </form>
       <div>
-      <a href="/service_crud">Manage Service Requests</a><br/>
+      <a href="/manager_incident">Manage Reported Incidents </a><br/>
         {/* <a href="/manager_pool">Manage Pool</a><br/>
         <a href="/manager_garden">Manage Garden</a> */}
       </div>

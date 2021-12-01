@@ -38,7 +38,7 @@ export default function ResidentServiceDetails() {
                 </tr>
                 <tr className="srow">
                     <td>5</td>
-                    <td>Water</td>
+                    <td>Laundry</td>
                     <td>$67</td>
                     <td>$3</td>
                 </tr>

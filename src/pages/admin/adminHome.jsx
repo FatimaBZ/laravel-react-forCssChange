@@ -1,5 +1,5 @@
 import "./adminHome.css";
-import { useState } from 'react'
+import { useState,useEffect} from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import CardGroup from 'react-bootstrap/CardGroup'
@@ -13,8 +13,25 @@ export default function AdminHome() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const data = { users: 100, visitors: 22, openRequests: 50, incidents: 35, totalApartments: 30, ownedApartments: 20, totalBuildings: 500, totalGarden: 20, totalPlants: 36 };
-
+  //const data = { users: 100, visitors: 22, openRequests: 50, incidents: 35, totalApartments: 30, ownedApartments: 20, totalBuildings: 500, totalGarden: 20, totalPlants: 36 };
+  const [data, setData] = useState([]);
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardData",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          console.log(result);
+            setData(result)
+        }
+    )
+},[]);
   return (
     <div className="AdminHome">
       <section className="adminheader">
@@ -77,7 +94,7 @@ export default function AdminHome() {
                     <Card.Title><h1 style={{ textAlign: 'center' }}>{data.openRequests}</h1></Card.Title></Card.Title>
                   <Card.Text>
 
-                    Total Open Requests
+                    Total Service Requests
                   </Card.Text>
                   <a href="/service_request_details">Click to view</a>
                 </Card.Body>
@@ -252,6 +269,20 @@ export default function AdminHome() {
                       Visitors can submit a form for inquiry stating which apartment they want to visit to.
                     </Card.Text>
                     <p style={{ textAlign: 'center' }}><a href="/crud_manager"> <Button variant="primary">Click here</Button> </a> </p>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              <Col>
+                <Card body outline color="success" className="mx-auto my-2" border="primary">
+                  <Card.Body>
+                    <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-list fa-2x"></i></p>
+                      <Card.Title> <h4 style={{ textAlign: 'center' }}>Manage Resident</h4></Card.Title></Card.Title>
+
+                    <Card.Text>
+                    Manager can take action for the incidents reported by and service requests submitted by residents.
+                    </Card.Text>
+                    <p style={{ textAlign: 'center' }}><a href="/manager_incident"> <Button variant="primary">Click here</Button> </a> </p>
                   </Card.Body>
                 </Card>
               </Col>

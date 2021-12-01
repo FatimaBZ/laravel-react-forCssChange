@@ -3,9 +3,8 @@ import React from "react";
 const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
   return (
     <tr>
-      <td>{contact.plantName}</td>
-      {/* <td>{contact.buildingName}</td> */}
-      <td>{contact.gardenNumber}</td>
+      <td>{contact.serviceName}</td>
+      <td>{contact.ownerId}</td>
       
       <td>
         <button

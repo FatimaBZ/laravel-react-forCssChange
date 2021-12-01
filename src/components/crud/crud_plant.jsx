@@ -1,6 +1,6 @@
 
 import "./crud_building.css";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment,useEffect } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
 import ReadOnlyRow from "./ReadOnlyRowPlant";
@@ -31,7 +31,33 @@ export default function CrudPlant() {
     gardenNumber: "",
     
   });
-
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/api/dashboardPlant",{
+        headers : { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+         }
+  
+      })
+    .then(res => res.json())
+    .then(
+   
+        (result)=>{
+          let transformArray;
+            console.log(result);
+            transformArray =  result.plants.map(item =>{
+              return {
+                plantName: item.pname,
+                gardenNumber: item.sid,
+                id:item.pid,
+                
+              }
+            });
+            console.log("test:::",transformArray);
+            setContacts(transformArray)
+        }
+    )
+},[]);
   const [editContactId, setEditContactId] = useState(null);
 
   const handleAddFormChange = (event) => {
@@ -72,7 +98,7 @@ export default function CrudPlant() {
     const newContacts = [...contacts, newContact];
     setContacts(newContacts);
     console.log(newContact)
-    axios.post('http://localhost:8888/reactProject/addPlant.php',newContact)
+    axios.post('http://127.0.0.1:8000/api/addPlant',newContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be inserted. Try again")
@@ -99,7 +125,7 @@ export default function CrudPlant() {
 
     setContacts(newContacts);
     console.log(newContacts)
-    axios.post('http://localhost:8888/reactProject/editPlant.php',editedContact)
+    axios.put('http://127.0.0.1:8000/api/editPlant',editedContact)
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be updated. Try again")
@@ -126,19 +152,19 @@ export default function CrudPlant() {
     setEditContactId(null);
   };
 
-  const handleDeleteClick = (plantName) => {
-    let data = {
-      plantName:plantName
-    }
+  const handleDeleteClick = (id) => {
+    // let data = {
+    //   plantName:plantName
+    // }
     const newContacts = [...contacts];
 
-    const index = contacts.findIndex((contact) => contact.plantName === plantName);
+    const index = contacts.findIndex((contact) => contact.id === id);
 
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    console.log(plantName)
-    axios.post('http://localhost:8888/reactProject/deletePlant.php',data)
+    console.log(id)
+    axios.delete('http://127.0.0.1:8000/api/deletePlant',{ data: { id: id } })
    .then(res=> console.log(res.data))
    .catch(error => {
      alert("Data could not be deleted. Try again")
@@ -182,15 +208,15 @@ export default function CrudPlant() {
         </table>
       </form>
 
-      <h2>Add a Plant</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Add a Plant</h2>
+      <form onSubmit={handleAddFormSubmit} class="text-center">
         <input
           type="text"
           name="plantName"
           required="required"
           placeholder="Enter a plant..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         {/* <input
           type="text"
           name="buildingName"
@@ -204,7 +230,7 @@ export default function CrudPlant() {
           required="required"
           placeholder="Enter a Garden number..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         
         <button type="submit">Add</button>
       </form>

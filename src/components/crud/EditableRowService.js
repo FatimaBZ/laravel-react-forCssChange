@@ -11,23 +11,23 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter pool name..."
-          name="poolName"
-          value={editFormData.poolName}
+          placeholder="Enter a service name..."
+          name="serviceName"
+          value={editFormData.serviceName}
           onChange={handleEditFormChange}
         ></input>
       </td>
-      <td>
+      {/* <td>
         <input
           type="text"
           required="required"
-          placeholder="Enter details.."
-          name="details"
-          value={editFormData.details}
+          placeholder="Enter Building Name..."
+          name="ownerId"
+          value={editFormData.buildingName}
           onChange={handleEditFormChange}
         ></input>
-      </td>
-     
+      </td> */}
+      
       <td>
         <button type="submit">Save</button>
         <button type="button" onClick={handleCancelClick}>
