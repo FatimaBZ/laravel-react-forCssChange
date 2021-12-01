@@ -52,7 +52,9 @@ import ManagerIncidentCrud from "./pages/manager/ManagerIncidentCrud";
 
 import ResidentHome from "./pages/resident/residentHome";
 import Services from "./pages/services/Services";
-import Chat from "./pages/chat/chat";
+// import Chat from "./pages/chat/chat";
+import Chat from './components/Chat/Chat';
+import Join from './components/Join/Join';
 import AdminDashboard from "./pages/admin/admin_dashboard";
 import FileUpload from "./pages/resident/file_Upload";
 
@@ -112,7 +114,7 @@ function App() {
         <Route exact path="/manager_garden">
           <ManagerGardenCrud />
         </Route>
-        ManagerApartmentCrud
+      
         <Route exact path="/manager_pool">
           <ManagerPoolCrud />
         </Route>
@@ -162,9 +164,9 @@ function App() {
         <Route exact path="/services">
           <Services/>
         </Route>
-        <Route exact path="/chatwithus">
+        {/* <Route exact path="/chatwithus">
           <Chat/>
-        </Route>
+        </Route> */}
         
         <Route exact path="/userDetails">
            <UserData/>
@@ -217,6 +219,10 @@ function App() {
     <CrudManager/>
 
     </Route>  
+
+        <Route path ="/join" exact component = {Join}/>
+
+        <Route path ="/chat" component = {Chat}/>
       </Switch>
       <Footer />
       </div>
