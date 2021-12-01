@@ -206,36 +206,36 @@ export default function CrudManager() {
         </table>
       </form>
 
-      <h2>Add a Manager</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Add a Manager</h2>
+      <form onSubmit={handleAddFormSubmit} class="text-center">
         <input
           type="text"
           name="firstName"
           required="required"
           placeholder="Enter first name..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="text"
           name="lastName"
           required="required"
           placeholder="Enter last name..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="password"
           name="passwrd"
           required="required"
           placeholder="Enter a password..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="email"
           name="email"
           required="required"
           placeholder="Enter an email..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <button type="submit">Add</button>
       </form>
     </div>

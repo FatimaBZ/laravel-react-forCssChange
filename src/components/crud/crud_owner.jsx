@@ -223,15 +223,15 @@ export default function CrudOwner() {
         </table>
       </form>
 
-      <h2>Assign an apartment to its owner  </h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Assign an apartment to its owner  </h2>
+      <form onSubmit={handleAddFormSubmit}class="text-center">
        <input
           type="text"
           name="apartmentNumber"
           required="required"
           placeholder="Enter apartment#"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         {/* <input
           type="text"
           name="firstName"
@@ -252,7 +252,7 @@ export default function CrudOwner() {
           required="required"
           placeholder="Enter owner id"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <button type="submit" >Add</button>
       </form>
       <div className="links">{

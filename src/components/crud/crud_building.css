@@ -145,7 +145,9 @@ a{
 .crud_building.hide{
     display:none;
 }*/
-
+.text-center{
+    text-align: center;
+}
 .app-container {
     display: flex;
     flex-direction: column;

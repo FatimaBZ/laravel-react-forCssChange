@@ -163,7 +163,7 @@ export default function CrudService() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container" >
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>
@@ -195,27 +195,27 @@ export default function CrudService() {
         </table>
       </form>
 
-      <h2>Register a Service Request</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Register a Service Request</h2>
+      <form onSubmit={handleAddFormSubmit} class="text-center">
         <input
           type="text"
           name="serviceName"
           required="required"
           placeholder="Enter service..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="integer"
           name="apartmentNumber"
           required="required"
           placeholder="Enter apartment.."
           onChange={handleAddFormChange}
-        />
+          class="text-center" />
         
         <button type="submit">Add</button>
       </form>
       <div>
-      <a href="">Manage Reported Incidents </a><br/>
+      <a href="/manager_incident">Manage Reported Incidents </a><br/>
         {/* <a href="/manager_pool">Manage Pool</a><br/>
         <a href="/manager_garden">Manage Garden</a> */}
       </div>

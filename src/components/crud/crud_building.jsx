@@ -199,22 +199,22 @@ export default function CrudBuilding() {
         </table>
       </form>
 
-      <h2>Add a Building</h2>
-      <form onSubmit={handleAddFormSubmit} className="crud">
+      <h2 class="text-center">Add a Building</h2>
+      <form onSubmit={handleAddFormSubmit} className="crud" class="text-center">
         <input
           type="text"
           name="buildingName"
           required="required"
           placeholder="Enter building name"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="text"
           name="address"
           required="required"
           placeholder="Enter building address"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         
         <button type="submit">Add</button>
       </form>

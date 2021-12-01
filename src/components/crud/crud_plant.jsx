@@ -208,15 +208,15 @@ export default function CrudPlant() {
         </table>
       </form>
 
-      <h2>Add a Plant</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Add a Plant</h2>
+      <form onSubmit={handleAddFormSubmit} class="text-center">
         <input
           type="text"
           name="plantName"
           required="required"
           placeholder="Enter a plant..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         {/* <input
           type="text"
           name="buildingName"
@@ -230,7 +230,7 @@ export default function CrudPlant() {
           required="required"
           placeholder="Enter a Garden number..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         
         <button type="submit">Add</button>
       </form>

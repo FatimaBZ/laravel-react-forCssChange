@@ -219,36 +219,36 @@ export default function CrudVisitor() {
         </table>
       </form>
 
-      <h2>Add a Visitor Apartment Inquiry</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2 class="text-center">Add a Visitor Apartment Inquiry</h2>
+      <form onSubmit={handleAddFormSubmit}class="text-center">
         <input
           type="text"
           name="firstName"
           required="required"
           placeholder="Enter first name..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="text"
           name="lastName"
           required="required"
           placeholder="Enter last name..."
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="text"
           name="ApartmentNumber"
           required="required"
           placeholder="Enter an apt#"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <input
           type="text"
           name="message"
           required="required"
           placeholder="Query"
           onChange={handleAddFormChange}
-        />
+          class="text-center"/>
         <button type="submit">Add</button>
       </form>
       <div className="links">{

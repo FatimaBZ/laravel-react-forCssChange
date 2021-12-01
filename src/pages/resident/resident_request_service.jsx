@@ -3,6 +3,7 @@ import axios from "axios";
 import React, {useState}  from "react";
 import  { useRef } from 'react';
 
+
 export default function ResidentRequestService() {
 
     const form = useRef();
@@ -45,9 +46,10 @@ export default function ResidentRequestService() {
       
     }
     return (
-<div class="inquiry">
+<div class="inquiry" >
     <span className="inquiryTitle">Request A Service</span>
-                   <form ref={form} class="inquiryform">
+   
+                   <form ref={form} class="inquiryform" >
                    <label class="inquirylabel" for="">Apartment #</label>
                     <input class="inquiryTextArea" type="number" id= "apartment-number" name = "apartmentNumber" onChange={e=>setDetails({...details, apartmentNumber: e.target.value})} value={details.apartmentNumber} required/>
     
@@ -61,9 +63,11 @@ export default function ResidentRequestService() {
                     <label class="inquirylabel" for="message">Any Incident You Want To Report?</label>
                     <textarea class="inquiryTextArea" id="message" name="incident" rows="8" onChange={e=>setDetails({...details, incident: e.target.value})} value={details.incident}></textarea>
                     
-                <button class="inquirybutton" type="submit" onClick={requestSubmitted}>SUBMIT</button>
+                <button class="inquirybutton" type="submit" onClick={requestSubmitted} >SUBMIT</button>
             </form>
-            
+        
     </div>
+
+    
 )
 }
