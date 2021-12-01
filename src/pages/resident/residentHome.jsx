@@ -70,7 +70,7 @@ export default function ResidentHome() {
                 <Card.Text>
                   Visitors can submit a form for inquiry stating which apartment they want to visit to.
                 </Card.Text>
-                <p style={{ textAlign: 'center' }}><a href="/chat"> <Button variant="primary">Click here</Button> </a> </p>
+                <p style={{ textAlign: 'center' }}><a href="/join"> <Button variant="primary">Click here</Button> </a> </p>
               </Card.Body>
             </Card>
           </Col>
