@@ -42,7 +42,7 @@ export default function ResidentHome() {
                 <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-list fa-2x"></i></p>
                   <Card.Title><h4 style={{ textAlign: 'center' }}>Service Details</h4></Card.Title></Card.Title>
                 <Card.Text>
-                  Whenever a building requires any maintenance or tenant issues, Lunar Management is ready to help.
+                  Whenever a building requires any maintenance or tenant issues, Lunamar Management is ready to help.
                 </Card.Text>
                 <p style={{ textAlign: 'center' }}><a href="/resident_service_details"> <Button variant="primary">Click here</Button> </a> </p>
               </Card.Body>
@@ -55,7 +55,7 @@ export default function ResidentHome() {
                   <Card.Title> <h4 style={{ textAlign: 'center' }}>Upload File</h4></Card.Title></Card.Title>
 
                 <Card.Text>
-                  Visitors can submit a form for inquiry stating which apartment they want to visit to.
+                  Hey Resident! You can Upload an image of jpeg, png,jpg format. You can also see the list of images.         
                 </Card.Text>
                 <p style={{ textAlign: 'center' }}><a href="/file_Upload"> <Button variant="primary">Click here</Button> </a> </p>
               </Card.Body>
@@ -68,7 +68,7 @@ export default function ResidentHome() {
                   <Card.Title> <h4 style={{ textAlign: 'center' }}>Chat With Us</h4></Card.Title></Card.Title>
 
                 <Card.Text>
-                  Visitors can submit a form for inquiry stating which apartment they want to visit to.
+                  Residents can perform one-one chat using our Live Chat. Make sure to put your name and chat room number
                 </Card.Text>
                 <p style={{ textAlign: 'center' }}><a href="/join"> <Button variant="primary">Click here</Button> </a> </p>
               </Card.Body>

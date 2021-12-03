@@ -56,7 +56,7 @@ export default function VisitorHome() {
                   <Card.Title> <h4 style={{ textAlign: 'center' }}>Chat With Us</h4></Card.Title></Card.Title>
 
                 <Card.Text>
-                  Visitors can submit a form for inquiry stating which apartment they want to visit to.
+                Visitors can perform one-one chat using our Live Chat. Make sure to put your name and chat room number
                 </Card.Text>
                 <p style={{ textAlign: 'center' }}><a href="/join"> <Button variant="primary">Click here</Button> </a> </p>
               </Card.Body>

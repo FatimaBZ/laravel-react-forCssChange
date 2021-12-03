@@ -221,10 +221,10 @@ export default function AdminHome() {
                 <Card body outline color="success" className="mx-auto my-2" border="primary">
                   <Card.Body>
                     <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-building fa-2x"></i></p>
-                      <Card.Title> <h4 style={{ textAlign: 'center' }}>Register Apartment and it's Owner</h4></Card.Title></Card.Title>
+                      <Card.Title> <h4 style={{ textAlign: 'center' }}>Register/Manage Apartment</h4></Card.Title></Card.Title>
 
                     <Card.Text>
-                      Visitors can submit a form for inquiry stating which apartment they want to visit to.
+                     Admin can register a new apartment
                     </Card.Text>
                     <p style={{ textAlign: 'center' }}><a href="/admin_owner_crud"> <Button variant="primary">Click here</Button> </a> </p>
                   </Card.Body>
@@ -286,7 +286,30 @@ export default function AdminHome() {
                   </Card.Body>
                 </Card>
               </Col>
+              <Col>
 
+<Card body outline color="success" className="mx-auto my-2" border="primary">
+
+  <Card.Body>
+
+    <Card.Title><p style={{ textAlign: 'center' }}><i class="fas fa-comments fa-2x"></i></p>
+
+      <Card.Title> <h4 style={{ textAlign: 'center' }}>Chat With Us</h4></Card.Title></Card.Title>
+
+
+
+    <Card.Text>
+
+      Click to chat
+    </Card.Text>
+
+    <p style={{ textAlign: 'center' }}><a href="/join"> <Button variant="primary">Click here</Button> </a> </p>
+
+  </Card.Body>
+
+</Card>
+
+</Col>
             </Row>
           </Offcanvas.Body>
         </Offcanvas>
